@@ -1,5 +1,19 @@
 services:
-  postgres:
+
+  api:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+    ports:
+      - "8080:8080"
+    environment:
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://db:5432/habilxp
+      QUARKUS_DATASOURCE_USERNAME: admin
+      QUARKUS_DATASOURCE_PASSWORD: 1234
+    depends_on:
+      - db
+
+  db:
     image: postgres:16
     container_name: habilxp-db
     restart: always
