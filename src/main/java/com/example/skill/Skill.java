@@ -18,4 +18,13 @@ public class Skill extends PanacheEntityBase {
 
     @Column(name = "xp_per_hour")
     public int xpPerHour;
+
+    @Column(name = "current_level")
+    public int currentLevel;
+
+    @Column(name = "xp_current_level")
+    public int xpCurrentLevel;
+
+    @Column(name = "xp_total")
+    public int xpTotal;
 }
