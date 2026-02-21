@@ -2,6 +2,8 @@ package com.example.skill;
 
 import java.util.List;
 
+import com.example.skill.dto.CreateSkillDto;
+
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -35,9 +37,15 @@ public class SkillResource {
 
     @POST
     @Transactional
-    public Skill create(Skill skill) {
+    public Response create(CreateSkillDto createSkillDto) {
+        Skill skill = new Skill();
+
+        skill.name = createSkillDto.name();
+        skill.xpPerHour = createSkillDto.xpPerHour();   
+    
         skill.persist();
-        return skill;
+    
+        return Response.status(Response.Status.CREATED).entity(skill).build();
     }
 
     @DELETE
