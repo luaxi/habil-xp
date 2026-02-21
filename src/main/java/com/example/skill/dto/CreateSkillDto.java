@@ -1,8 +1,12 @@
 package com.example.skill.dto;
 
-import io.smallrye.common.constraint.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record CreateSkillDto(
+    @NotBlank(message = "'name' é obrigatório")
     String name, 
-    @NotNull Integer xpPerHour
+
+    @NotNull(message = "'xpPerHour' é obrigatório")
+    Integer xpPerHour
 ) {}

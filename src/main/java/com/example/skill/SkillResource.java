@@ -6,6 +6,7 @@ import com.example.skill.dto.CreateSkillDto;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -32,18 +33,12 @@ public class SkillResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-        Skill skill = skillService.getById(id);
-        
-        if (skill == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        return Response.ok(skill).build();
+        return Response.ok(skillService.getById(id)).build();
     }
 
     @POST
     @Transactional
-    public Response create(CreateSkillDto createSkillDto) {
+    public Response create(@Valid CreateSkillDto createSkillDto) {
         Skill skill = skillService.create(createSkillDto);
     
         return Response.status(Response.Status.CREATED).entity(skill).build();
@@ -53,11 +48,7 @@ public class SkillResource {
     @Path("/{id}")
     @Transactional
     public Response delete(@PathParam("id") Long id) {
-        boolean deleted = skillService.delete(id);
-        
-        if (!deleted) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        skillService.delete(id);
         return Response.noContent().build();
     }
 
